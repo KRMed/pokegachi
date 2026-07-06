@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-image: url('/first_roll.png');
+    background-position: center;
+    background-size: cover;
+    background-color: #f4efe5;
+}
+
+.text_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stuff { /*da button and text box div*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10vh;
+    gap: 100px
+}
+
+.text-box {
+    background: white;
+    border: 3px solid black;
+    padding: 25px 40px;
+    font-family: "Press Start 2P", monospace;
+    font-size: 18px;
+    line-height: 1.8;
+}
