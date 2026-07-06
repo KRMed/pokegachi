@@ -5,7 +5,7 @@ export default function Login() {
 
   return (
     <div className="login-page">
-        <div className="focus">
+        <div className="login-focus">
             <img className="logo" src={logo} />
             <form className="panel">
                 <label>
