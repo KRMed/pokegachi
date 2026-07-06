@@ -1,5 +1,5 @@
 import './login_register.css';
-import logo from '/public/home.png'
+import logo from '/pokegachi_logo.png'
 
 export default function Login() {
 
