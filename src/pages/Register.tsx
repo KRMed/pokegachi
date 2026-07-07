@@ -13,7 +13,7 @@ export default function Register() {
     });
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     supabase.auth.signUp({ email, password }).then((result) => {
@@ -23,7 +23,7 @@ export default function Register() {
 
   return (
     <div className="login-page">
-      <div className="focus">
+      <div className="login-focus">
         <img className="logo" src={logo} />
         <form className="panel" onSubmit={handleSubmit}>
           <label>

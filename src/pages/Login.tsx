@@ -14,7 +14,7 @@ export default function Login() {
     });
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     supabase.auth.signInWithPassword({ email, password }).then((result) => {
@@ -54,6 +54,8 @@ export default function Login() {
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           <button type="submit">Login</button>
         </form>
+            Don't have an account?<br />
+            <a href="register">Register</a>
       </div>
     </div>
   );
