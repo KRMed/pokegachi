@@ -2,9 +2,11 @@ import Button from '../components/button';
 import './first.css';
 import { useState, useEffect } from 'react';
 import { getPokemonList, getRandomPokemon } from '../lib/pokeapi.ts';
+import { useNavigate } from "react-router-dom";
 
 export default function First() {
     const [pokemon, setPokemon] = useState<{ name: string; sprite: string } | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getPokemonList();
@@ -20,8 +22,12 @@ export default function First() {
             className="pokemon-img"
             src={pokemon ? pokemon.sprite : "/mystery.png"} 
         />
-        <Button text="Roll" onClick={() => setPokemon(getRandomPokemon())} />
-      </div>
+        {pokemon ? (
+            <Button text="Go to Home" onClick={() => navigate("/home")} />
+            ) : (
+            <Button text="Roll" onClick={() => setPokemon(getRandomPokemon())} />
+            )}
+        </div>
     </div>
   );
  
