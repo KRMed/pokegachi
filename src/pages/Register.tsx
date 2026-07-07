@@ -1,11 +1,15 @@
 import "./login_register.css";
 import logo from "/pokegachi_logo.png";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     supabase.auth.getSession().then((result) => {
@@ -18,6 +22,27 @@ export default function Register() {
 
     supabase.auth.signUp({ email, password }).then((result) => {
       console.log(result);
+
+      if (result.error) {
+        setErrorMessage(result.error.message);
+        return;
+      }
+
+      if (!result.data.user) {
+        setErrorMessage("Something went wrong, please try again.");
+        return;
+      }
+
+      supabase
+        .from("user")
+        .insert({ email, auth_id: result.data.user.id })
+        .then((insertResult) => {
+          if (insertResult.error) {
+            setErrorMessage(insertResult.error.message);
+          } else {
+            navigate("/register/first-pokemon");
+          }
+        });
     });
   };
 
@@ -42,7 +67,7 @@ export default function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
           <button type="submit">Create Account</button>
         </form>
       </div>
