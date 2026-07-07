@@ -1,39 +1,62 @@
-import './login_register.css';
-import logo from '/pokegachi_logo.png'
+import "./login_register.css";
+import logo from "/pokegachi_logo.png";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 
 import { useState } from "react";
 
 export default function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+  useEffect(() => {
+    supabase.auth.getSession().then((result) => {
+      console.log(result);
+    });
+  }, []);
 
-        // TODO: Authentication w/ user db
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    return (
-        <div className="login-page">
-            <div className="login-focus">
-                <img className="logo" src={logo} />
-                <form className="panel" onSubmit={handleSubmit}>
-                    <label>
-                        Username
-                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
-                    </label>
-                    <label>
-                        Password
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                    </label>
+    supabase.auth.signInWithPassword({ email, password }).then((result) => {
+      console.log(result);
 
-                    <button type="submit" disabled={!username || !password}>
-                        Login
-                    </button>
-                </form>
-                Don't have an account?<br />
-                <a href="register">Register</a>
-            </div>
-        </div>
-    );
+      if (result.error) {
+        setErrorMessage(result.error.message);
+      } else {
+        setErrorMessage("");
+      }
+    });
+  };
+
+  console.log(email, password);
+
+  return (
+    <div className="login-page">
+      <div className="login-focus">
+        <img className="logo" src={logo} />
+        <form className="panel" onSubmit={handleSubmit}>
+          <label>
+            Email
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  );
 }
