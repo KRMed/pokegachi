@@ -42,7 +42,6 @@ export default function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-
           <button type="submit">Create Account</button>
         </form>
       </div>
