@@ -3,6 +3,8 @@ import logo from "/pokegachi_logo.png";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 
+import { useState } from "react";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
