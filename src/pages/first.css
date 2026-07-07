@@ -26,3 +26,9 @@
     font-size: 18px;
     line-height: 1.8;
 }
+
+.pokemon-img {
+    width: 300px;
+    height: 300px;
+    image-rendering: pixelated;
+}
