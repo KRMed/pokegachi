@@ -16,13 +16,16 @@
 }
 
 .logo {
-    width: clamp(180px, 28vw, 340px);
+    width: clamp(300px, 50vw, 500px);
+    padding-top: 20px;
+    max-width: none;
 }
 
 .group-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 20px;
 }
 
 .group {
@@ -32,17 +35,37 @@
 }
 
 .trainer {
-    width: 250px;
+    width: 150px;
     height: auto;
+    order: 0;
+    flex-shrink: 0;
 }
 
-.pokemons {
+.menu {
     display: flex;
-    gap: 25px;
-    margin-top: 30px;
+    gap: 50px;
+    margin-top: 100px;
 }
 
-.pokemons img {
-    width: 60px;
+.party {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.party-side {
+    display: flex;
+    flex-direction: row;
+    gap: 120px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pokemon {
+    width: 150px;
     height: auto;
+    image-rendering: pixelated;
 }
