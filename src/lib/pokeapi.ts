@@ -1,12 +1,13 @@
 let list: { name: string }[] = [];
 
-export async function getPokemonList() {
+async function getPokemonList() {
   const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
   const data = await response.json();
   list = data.results;
 }
 
-export function getRandomPokemon() {
+export async function getRandomPokemon() {
+  await getPokemonList(); 
   const randomIndex = Math.floor(Math.random() * list.length);
   return {
     name: list[randomIndex].name,

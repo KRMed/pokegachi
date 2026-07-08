@@ -1,11 +1,20 @@
 import './battle.css';
-
+import { supabase } from '../lib/supabase.ts';
 import { getQuestion, type Question } from "../lib/trivia";
 import Button from "../components/button";
 import { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getRandomPokemon } from "../lib/pokeapi.ts";
 
 export default function Battle() {
+  const [ourPokemon, setourPokemon] = useState<{
+    name: string;
+    sprite: string;
+  } | null>(null);
+  const [badPokemon, setbadPokemon] = useState<{
+    name: string;
+    sprite: string;
+  } | null>(null);
   const [question, setQuestion] = useState<Question | null>(null);
   const [response, setResponse] = useState<"Correct" | "Wrong" | null>(null);
   const [answer, setAnswer] = useState<string | null>(null);
@@ -15,7 +24,10 @@ export default function Battle() {
     let hasQuestion = false;
     let retry = 0;
     let timeoutId: ReturnType<typeof setTimeout>;
-
+    async function getBadPokemon() {
+      const pokemon = await getRandomPokemon();
+      if (!hasQuestion) setbadPokemon(pokemon);
+    }
     async function loadQuestion() {
       try {
         const data = await getQuestion();
@@ -27,11 +39,38 @@ export default function Battle() {
       }
     }
 
+    supabase.auth.getSession().then((result) => {
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+      if (!result.data.session) {
+        console.error("No active session");
+        return;
+      }
+      supabase
+        .from("pokemon")
+        .select("name, sprite")
+        .eq("auth_id", result.data.session.user.id)
+        .then((queryResult) => {
+          if (queryResult.error) {
+            console.error(queryResult.error.message);
+            return;
+          }
+          const rows = queryResult.data as { name: string; sprite: string }[];
+          if (rows.length === 0) return;
+          const random = rows[Math.floor(Math.random() * rows.length)];
+          setourPokemon(random);
+        });
+    });
+
+    getBadPokemon();
+
     loadQuestion();
     return () => {
       hasQuestion = true;
       clearTimeout(timeoutId);
-    }
+    };
   }, []);
 
   function shuffle(arr: string[]) {
@@ -57,16 +96,16 @@ export default function Battle() {
 
     setTimeout(() => {
       navigate("/home");
-    }, 5000);
+    }, 4000);
   }
 
   return (
     <div className="battle-page">
-      <img id="opp" className="battle-pokemon" src="/pokegachi_logo.png" />
-      <img id="user" className="battle-pokemon" src="/pokegachi_logo.png" />
+      <img id="opp" className="battle-pokemon" src={badPokemon?.sprite} />
+      <img id="user" className="battle-pokemon" src={ourPokemon?.sprite} />
       <div className="trivia">
         <div className="question-box">
-          <h2>{isLoading ? "Loading..." : response == "Correct" ? "Your Pokemon defeats ..." : response == "Wrong" ? "Your Pokemon has been defeated." : question.question}</h2>
+          <h2>{isLoading ? "Loading..." : response == "Correct" ? `You've defeated ${badPokemon?.name}!` : response == "Wrong" ? "You've been defeated" : question.question}</h2>
         </div>
 
         <div className="choice-box">
