@@ -21,6 +21,12 @@
 .logo {
     width: clamp(180px, 28vw, 340px);
     margin-bottom: 20px;
+    filter: drop-shadow(2px 0 0 #1949c4) /*cool way to get transparent background images to have outliens or shadow*/
+            drop-shadow(-2px 0 0 #1949c4) 
+            drop-shadow(0 2px 0 #1949c4) 
+            drop-shadow(0 -2px 0 #1949c4)
+            drop-shadow(0 0 0.7rem #000);
+    gap: 20px;
 }
 
 .panel {
