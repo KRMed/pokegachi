@@ -1,0 +1,32 @@
+.food-page {
+  margin: 0;
+  background-position: center;
+  background-size: cover;
+  background-color: #8ecbf8;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-container {
+  display: flex;
+  top: 20px;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.title {
+  position: absolute;
+  top: 20px;
+  left: 45%;
+  width: clamp(300px, 50vw, 500px);
+  padding-top: 20px;
+  max-width: none;
+}
+
+.button-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
