@@ -62,8 +62,8 @@ export default function Battle() {
 
   return (
     <div className="battle-page">
-      <img id="opp" className="pokemon" src="/pokegachi_logo.png" />
-      <img id="user" className="pokemon" src="/pokegachi_logo.png" />
+      <img id="opp" className="battle-pokemon" src="/pokegachi_logo.png" />
+      <img id="user" className="battle-pokemon" src="/pokegachi_logo.png" />
       <div className="trivia">
         <div className="question-box">
           <h2>{isLoading ? "Loading..." : response == "Correct" ? "Your Pokemon defeats ..." : response == "Wrong" ? "Your Pokemon has been defeated." : question.question}</h2>

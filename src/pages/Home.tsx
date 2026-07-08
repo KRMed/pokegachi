@@ -59,13 +59,13 @@ export default function Home() {
                 <div className="party">
                     <div className="party-side">
                         {pokemons?.slice(0, 3).map((p, i) => (
-                        <img key={i} className="pokemon" src={p.sprite} />
+                        <img key={i} className="pokemon-home" src={p.sprite} />
                     ))}
                     </div>
                     <img className="trainer" src={trainer} />
                     <div className="party-side">
                         {pokemons?.slice(3, 6).map((p, i) => (
-                        <img key={i} className="pokemon" src={p.sprite} />
+                        <img key={i} className="pokemon-home" src={p.sprite} />
                         ))}
                     </div>
                 </div>
