@@ -1,5 +1,5 @@
 import { test, expect, vi } from "vitest";
-import { getPokemonList, getRandomPokemon } from "./pokeapi";
+import { getRandomPokemon } from "./pokeapi";
 
 vi.stubGlobal("fetch", vi.fn(() =>
     Promise.resolve({
@@ -10,7 +10,6 @@ vi.stubGlobal("fetch", vi.fn(() =>
 ));
 
 test("returns a pokemon", async () => {
-    await getPokemonList();
-    const p = getRandomPokemon();
+    const p = await getRandomPokemon();
     expect(p.name).toBe("bulbasaur");
 });
