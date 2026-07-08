@@ -12,30 +12,38 @@
 .logo-container {
     display: flex;
     justify-content: center;
-    padding-top: 20px;
+    padding-top: 1.5rem;
 }
 
-.logo {
-    width: clamp(300px, 50vw, 500px);
+.pokegachi-logo { /*turns out that nes has a logo class so this wasnt even doing anything */
+    width: clamp(500px, 70vw, 550px);
     padding-top: 20px;
     max-width: none;
+    filter: drop-shadow(2px 0 0 #1949c4) /*cool way to get transparent background images to have outliens or shadow*/
+            drop-shadow(-2px 0 0 #1949c4) 
+            drop-shadow(0 2px 0 #1949c4) 
+            drop-shadow(0 -2px 0 #1949c4)
+            drop-shadow(0 0 0.7rem #000);
 }
 
 .group-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 20px;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
 .group {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    max-width: 1400px;
 }
 
 .trainer {
-    width: 150px;
+    width: clamp(100px, 12vw, 180px);
     height: auto;
     order: 0;
     flex-shrink: 0;
@@ -43,8 +51,10 @@
 
 .menu {
     display: flex;
-    gap: 50px;
-    margin-top: 100px;
+    gap: clamp(4rem, 6vw, 8rem);
+    margin-top: clamp(2rem, 6vw, 5rem);
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .party {
@@ -52,20 +62,20 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 50px;
-    flex-wrap: wrap;
+    gap: clamp(2rem, 3vw, 3rem);
+    flex-wrap: nowrap;
 }
 
 .party-side {
     display: flex;
     flex-direction: row;
-    gap: 120px;
+    gap: clamp(2rem, 10vw, 4rem);
     flex-wrap: wrap;
     justify-content: center;
 }
 
 .pokemon {
-    width: 150px;
+    width: clamp(120px, 10vw, 250px);
     height: auto;
     image-rendering: pixelated;
 }

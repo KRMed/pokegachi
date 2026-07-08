@@ -51,32 +51,32 @@ export default function Home() {
 
   return (
     <div className="home-page">
-      <div className="logo-container">
-        <img className="logo" src={logo} />
-      </div>
-      <div className="group-container">
-        <div className="group">
-          <div className="party">
-            <div className="party-side">
-              {pokemons?.slice(0, 3).map((p, i) => (
-                <img key={i} className="pokemon" src={p.sprite} />
-              ))}
-            </div>
-            <img className="trainer" src={trainer} />
-            <div className="party-side">
-              {pokemons?.slice(3, 6).map((p, i) => (
-                <img key={i} className="pokemon" src={p.sprite} />
-              ))}
-            </div>
-          </div>
-          <div className="menu">
-            <Button text="Battle" onClick={() => navigate("/battle")} />
-            <Button text="Pokemon" onClick={() => navigate("/pokemon")} />
-            <Button text="Store" onClick={() => navigate("/store")} />
-            <Button text="Logout" onClick={handleLogout} />
-          </div>
+        <div className="logo-container">
+            <img className="pokegachi-logo" src={logo} />
         </div>
-      </div>
+        <div className="group-container">
+            <div className="group">
+                <div className="party">
+                    <div className="party-side">
+                        {pokemons?.slice(0, 3).map((p, i) => (
+                        <img key={i} className="pokemon" src={p.sprite} />
+                    ))}
+                    </div>
+                    <img className="trainer" src={trainer} />
+                    <div className="party-side">
+                        {pokemons?.slice(3, 6).map((p, i) => (
+                        <img key={i} className="pokemon" src={p.sprite} />
+                        ))}
+                    </div>
+                </div>
+                <div className="menu">
+                    <Button text="Battle" onClick={() => navigate("/battle")} />
+                    <Button text="Pokemon" onClick={() => navigate("/pokemon")} />
+                    <Button text="Store" onClick={() => navigate("/store")} />
+                    <Button text="Logout" onClick={handleLogout} />
+                </div>
+            </div>
+        </div>
     </div>
   );
 }

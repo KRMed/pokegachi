@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.0",
+    "he": "^1.2.0",
     "nes.css": "^2.2.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/he": "^1.2.3",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
