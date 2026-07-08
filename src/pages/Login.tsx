@@ -2,11 +2,13 @@ import "./login_register.css";
 import logo from "/pokegachi_logo.png";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     supabase.auth.getSession().then((result) => {
@@ -23,7 +25,7 @@ export default function Login() {
       if (result.error) {
         setErrorMessage(result.error.message);
       } else {
-        setErrorMessage("");
+        navigate("/home");
       }
     });
   };

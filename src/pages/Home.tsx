@@ -2,24 +2,38 @@ import logo from '/pokegachi_logo.png'
 import Button from '../components/button';
 import './home.css';
 import { useNavigate } from 'react-router-dom';
-import { getPokemonList, getRandomPokemon } from '../lib/pokeapi.ts';
 import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabase";
 
 export default function Home() {
   const navigate = useNavigate();
   // Temporary until we start storing the user's pokemon party in the database
   const [pokemons, setPokemons] = useState<{ name: string; sprite: string }[] | null>(null);
   useEffect(() => {
-    getPokemonList().then(() => {
-      setPokemons(Array.from({ length: 6 }, () => getRandomPokemon()));
+    supabase.auth.getSession().then((result) => {
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+      if (!result.data.session) {
+        console.error("session not active for some reason");
+        return;
+      }
+
+      supabase
+        .from("pokemon")
+        .select("name, sprite")
+        .eq("auth_id", result.data.session.user.id) //filters for rows where id matches user
+        .then((queryResult) => {
+          if (queryResult.error) {
+            console.error(queryResult.error.message);
+            return;
+          }
+          setPokemons(queryResult.data as { name: string; sprite: string }[]);
+        });
     });
   }, []);
-
-//   const pokemons: string[] = [
-//     '/first_roll.png',
-//     '/pokegachi_logo.png',
-//     '/login_page.png'
-//   ];
+    
   const trainer = '/trainer.png';
 
   return (
