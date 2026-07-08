@@ -1,12 +1,16 @@
-import './Pokemon.css';
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
-import Button from '../components/button';
-import { useNavigate } from 'react-router-dom';
+import Button from "../components/button";
+import { useNavigate } from "react-router-dom";
 
 export default function Pokemon() {
-  const [pokemons, setPokemons] = useState<{ name: string; sprite: string }[] | null>(null);
-  const [selectedPokemon, setSelectedPokemon] = useState<{ name: string; sprite: string } | null>(null);
+  const [pokemons, setPokemons] = useState<
+    { name: string; sprite: string }[] | null
+  >(null);
+  const [selectedPokemon, setSelectedPokemon] = useState<{
+    name: string;
+    sprite: string;
+  } | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,9 +46,15 @@ export default function Pokemon() {
       <div className="pokemon-top">
         <div className="pokemon-info">
           <div className="selected-img">
-            {selectedPokemon ? <img src={selectedPokemon.sprite} alt={selectedPokemon.name} /> : null}
+            {selectedPokemon ? (
+              <img src={selectedPokemon.sprite} alt={selectedPokemon.name} />
+            ) : null}
           </div>
-          <h3>{selectedPokemon ? `Name: ${selectedPokemon.name}` : "No pokemon selected"}</h3>
+          <h3>
+            {selectedPokemon
+              ? `Name: ${selectedPokemon.name}`
+              : "No pokemon selected"}
+          </h3>
         </div>
         <div className="menu-actions">
           <Button text="Fight" onClick={() => navigate("/battle")} />
@@ -55,11 +65,7 @@ export default function Pokemon() {
       </div>
       <div className="pokemon-bottom">
         {pokemons?.map((p, i) => (
-          <img
-            key={i}
-            src={p.sprite}
-            onClick={() => setSelectedPokemon(p)}
-          />
+          <img key={i} src={p.sprite} onClick={() => setSelectedPokemon(p)} />
         ))}
       </div>
     </div>

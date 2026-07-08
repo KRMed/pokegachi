@@ -5,6 +5,7 @@ import Pokemon from "./pages/Pokemon";
 import Battle from "./pages/Battle";
 import First from "./pages/First";
 import Food from "./pages/Food";
+import Store from "./pages/Store";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -15,4 +16,5 @@ export const router = createBrowserRouter([
   { path: "/pokemon", element: <Pokemon /> },
   { path: "/battle", element: <Battle /> },
   { path: "/food", element: <Food /> },
+  { path: "/store", element: <Store /> },
 ]);

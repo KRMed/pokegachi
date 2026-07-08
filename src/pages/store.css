@@ -1,0 +1,68 @@
+.store-page {
+  margin: 0;
+  background-position: center;
+  background-size: cover;
+  background-color: #8ecbf8;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-container {
+  display: flex;
+  top: 20px;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.title {
+  position: absolute;
+  top: 20px;
+  left: 40%;
+  width: clamp(300px, 50vw, 500px);
+  padding-top: 20px;
+  max-width: none;
+}
+
+.button-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.pokemart {
+  position: absolute;
+  top: 200px;
+  left: 100px;
+  width: 500px;
+}
+
+.ball-food {
+  position: absolute;
+  top: 200px;
+  left: 750px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.items {
+  display: flex;
+  flex-direction: flex-end;
+  gap: 50px;
+}
+
+.item-part {
+  width: 120px;
+  height: 120px;
+  background-color: #8582e0;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-part img {
+  width: 90%;
+  height: 90%;
+}
