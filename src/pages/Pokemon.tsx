@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import Button from "../components/button";
 import { useNavigate } from "react-router-dom";
+import "./pokemon.css";
 
 export default function Pokemon() {
   const [pokemons, setPokemons] = useState<
