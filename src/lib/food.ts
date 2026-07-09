@@ -1,16 +1,19 @@
-export const foods: { name: string; sprite: string }[] = [
+export const foods: { name: string; sprite: string; price: number }[] = [
   {
     name: "Oran Berry",
+    price: 10,
     sprite:
       "https://raw.githubusercontent.com/msikma/pokesprite/master/items/berry/oran.png",
   },
   {
     name: "Pecha Berry",
+    price: 25,
     sprite:
       "https://raw.githubusercontent.com/msikma/pokesprite/master/items/berry/pecha.png",
   },
   {
     name: "Fancy Apple",
+    price: 40,
     sprite:
       "https://raw.githubusercontent.com/msikma/pokesprite/master/items/curry-ingredient/fancy-apple.png",
   },
