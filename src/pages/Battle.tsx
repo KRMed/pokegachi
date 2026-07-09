@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { getRandomPokemon } from "../lib/pokeapi.ts";
 
 export function shuffle(arr: string[]) {
-  return arr.map(elem => ({ elem, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ elem }) => elem);
+  return arr
+    .map((elem) => ({ elem, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ elem }) => elem);
 }
 
 export default function Battle() {
@@ -109,7 +112,7 @@ export default function Battle() {
 
       const { error: updateError } = await supabase
         .from("user")
-        .update({ currency: userData.currency + 10 })
+        .update({ currency: userData.currency + 100000 })
         .eq("auth_id", authId);
 
       if (updateError) {

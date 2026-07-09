@@ -72,25 +72,34 @@ export default function Pokemon() {
             console.error(queryResult.error.message);
             return;
           }
-          setPokemons(queryResult.data as { pokemonid: number; name: string; sprite: string; experience: number; }[]);
+          setPokemons(
+            queryResult.data as {
+              pokemonid: number;
+              name: string;
+              sprite: string;
+            }[],
+          );
         });
     });
   }, []);
 
   async function sellPokemon() {
     if (!selectedPokemon) return;
-    
+
     const { error } = await supabase
       .from("pokemon")
       .delete()
-      .eq("pokemonid", selectedPokemon.pokemonid)
+      .eq("pokemonid", selectedPokemon.pokemonid);
 
     if (error) {
       console.log("Failed to delete");
     }
 
-    setPokemons((oldPokemons) => 
-      oldPokemons?.filter((poke) => poke.pokemonid !== selectedPokemon.pokemonid) ?? null
+    setPokemons(
+      (oldPokemons) =>
+        oldPokemons?.filter(
+          (poke) => poke.pokemonid !== selectedPokemon.pokemonid,
+        ) ?? null,
     );
     setSelectedPokemon(null);
   }
@@ -120,14 +129,22 @@ export default function Pokemon() {
         </div>
         <div className="menu-actions">
           <Button text="Fight" onClick={() => navigate("/battle")} />
-          <Button text="Feed" onClick={() => navigate("/food")} />
+          <Button
+            text="Feed"
+            onClick={() => navigate("/food", { state: selectedPokemon })}
+          />
           <Button
             text="Pet"
             onClick={() => {
               handlePet();
             }}
           />
-          <Button text="Sell" onClick={() => {sellPokemon()}} />
+          <Button
+            text="Sell"
+            onClick={() => {
+              sellPokemon();
+            }}
+          />
         </div>
       </div>
       <div className="pokemon-bottom">

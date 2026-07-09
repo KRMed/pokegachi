@@ -30,3 +30,31 @@
   top: 20px;
   left: 20px;
 }
+
+.pokemon {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pokemon img {
+  width: clamp(150px, 20vw, 300px);
+}
+
+.exp-text {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 3px solid #333;
+  border-radius: 16px;
+  padding: 12px 24px;
+  max-width: 80vw;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

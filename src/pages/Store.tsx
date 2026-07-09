@@ -83,35 +83,22 @@ export default function Store() {
 
     const currentCount = foodCounts[name] || 0;
 
-    if (currentCount > 0) {
-      const { data, error } = await supabase
-        .from("food")
-        .update({ amount: currentCount + 1 })
-        .eq("auth_id", authId)
-        .eq("name", name)
-        .select("amount")
-        .single();
+    const { data, error } = await supabase
+      .from("food")
+      .upsert(
+        { auth_id: authId, name, amount: currentCount + 1 },
+        { onConflict: "auth_id,name" },
+      )
+      .select("amount")
+      .single();
 
-      if (error) {
-        console.error("Update failed:", error.message);
-      } else {
-        setFoodCounts((prev) => ({ ...prev, [name]: data.amount }));
-      }
+    if (error) {
+      console.error("Purchase failed:", error.message);
     } else {
-      const { data, error } = await supabase
-        .from("food")
-        .insert({ name, amount: 1, auth_id: authId })
-        .select("amount")
-        .single();
+      setFoodCounts((prev) => ({ ...prev, [name]: data.amount }));
 
-      if (error) {
-        console.error("Insert failed:", error.message);
-      } else {
-        setFoodCounts((prev) => ({ ...prev, [name]: data.amount }));
-      }
+      setBuying(false);
     }
-
-    setBuying(false);
   }
 
   async function handleRoll() {
@@ -164,9 +151,14 @@ export default function Store() {
             {foods.map((item, i) => (
               <div key={i} className="item-part">
                 <img src={item.sprite} alt={item.name} />
-                <span className="item-count">x{foodCounts[item.name] || 0}</span>
+                <span className="item-count">
+                  x{foodCounts[item.name] || 0}
+                </span>
                 <span className="item-price">{item.price} coins</span>
-                <Button text="Buy" onClick={() => handleBuy(item.name, item.price)} />
+                <Button
+                  text="Buy"
+                  onClick={() => handleBuy(item.name, item.price)}
+                />
               </div>
             ))}
           </div>
