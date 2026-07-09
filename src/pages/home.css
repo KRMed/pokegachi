@@ -74,7 +74,7 @@
     justify-content: center;
 }
 
-.pokemon {
+.pokemon-home {
     width: clamp(120px, 10vw, 250px);
     height: auto;
     image-rendering: pixelated;

@@ -1,7 +1,7 @@
 import Button from "../components/button";
 import "./first.css";
 import { useState, useEffect } from "react";
-import { getPokemonList, getRandomPokemon } from "../lib/pokeapi.ts";
+import { getRandomPokemon } from "../lib/pokeapi.ts";
 import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 
@@ -16,8 +16,6 @@ export default function First() {
 
   //We get the Authid
   useEffect(() => {
-    getPokemonList();
-
     supabase.auth.getSession().then((result) => {
       if (result.error) {
         console.error(result.error.message);
@@ -62,7 +60,7 @@ export default function First() {
         {pokemon ? (
           <Button text="Go to Home" onClick={handleGoHome} />
         ) : (
-          <Button text="Roll" onClick={() => setPokemon(getRandomPokemon())} />
+          <Button text="Roll" onClick={async () => setPokemon(await getRandomPokemon())} />
         )}
       </div>
     </div>
