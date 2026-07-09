@@ -42,9 +42,10 @@ export default function Pokemon() {
   }
 
   const [pokemons, setPokemons] = useState<
-    { name: string; sprite: string }[] | null
+    { pokemonid: number; name: string; sprite: string }[] | null
   >(null);
   const [selectedPokemon, setSelectedPokemon] = useState<{
+    pokemonid: number;
     name: string;
     sprite: string;
   } | null>(null);
@@ -63,17 +64,35 @@ export default function Pokemon() {
 
       supabase
         .from("pokemon")
-        .select("name, sprite")
+        .select("pokemonid, name, sprite")
         .eq("auth_id", result.data.session.user.id) //filters for rows where id matches user
         .then((queryResult) => {
           if (queryResult.error) {
             console.error(queryResult.error.message);
             return;
           }
-          setPokemons(queryResult.data as { name: string; sprite: string }[]);
+          setPokemons(queryResult.data as { pokemonid: number; name: string; sprite: string }[]);
         });
     });
   }, []);
+
+  async function sellPokemon() {
+    if (!selectedPokemon) return;
+    
+    const { error } = await supabase
+      .from("pokemon")
+      .delete()
+      .eq("pokemonid", selectedPokemon.pokemonid)
+
+    if (error) {
+      console.log("Failed to delete");
+    }
+
+    setPokemons((oldPokemons) => 
+      oldPokemons?.filter((poke) => poke.pokemonid !== selectedPokemon.pokemonid) ?? null
+    );
+    setSelectedPokemon(null);
+  }
 
   return (
     <div className="pokemon-page">
@@ -102,7 +121,7 @@ export default function Pokemon() {
               handlePet();
             }}
           />
-          <Button text="Sell" onClick={() => {}} />
+          <Button text="Sell" onClick={() => {sellPokemon()}} />
         </div>
       </div>
       <div className="pokemon-bottom">
