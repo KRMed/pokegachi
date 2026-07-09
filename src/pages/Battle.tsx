@@ -1,5 +1,5 @@
-import './battle.css';
-import { supabase } from '../lib/supabase.ts';
+import "./battle.css";
+import { supabase } from "../lib/supabase.ts";
 import { getQuestion, type Question } from "../lib/trivia";
 import Button from "../components/button";
 import { useMemo, useEffect, useState } from "react";
@@ -22,6 +22,7 @@ export default function Battle() {
   const [question, setQuestion] = useState<Question | null>(null);
   const [response, setResponse] = useState<"Correct" | "Wrong" | null>(null);
   const [answer, setAnswer] = useState<string | null>(null);
+  const [authId, setAuthId] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function Battle() {
       } catch (error) {
         if (!hasQuestion && retry !== 1) {
           timeoutId = setTimeout(loadQuestion, 5000);
-        }   
+        }
       }
     }
 
@@ -52,6 +53,9 @@ export default function Battle() {
         console.error("No active session");
         return;
       }
+
+      setAuthId(result.data.session.user.id);
+
       supabase
         .from("pokemon")
         .select("name, sprite")
@@ -85,12 +89,32 @@ export default function Battle() {
   const isLoading = !question;
   const displayChoices = isLoading ? ["1", "2", "3", " 4"] : choices;
 
-  function handleChoice(choice: string) {
+  async function handleChoice(choice: string) {
     if (isLoading || answer) return;
     setAnswer(choice);
 
     if (choice == question?.correct_answer) {
       setResponse("Correct");
+
+      const { data: userData, error: fetchError } = await supabase
+        .from("user")
+        .select("currency")
+        .eq("auth_id", authId)
+        .single(); //gets it so its not in array
+
+      if (fetchError) {
+        console.log(fetchError.message);
+        return;
+      }
+
+      const { error: updateError } = await supabase
+        .from("user")
+        .update({ currency: userData.currency + 10 })
+        .eq("auth_id", authId);
+
+      if (updateError) {
+        console.log(updateError.message);
+      }
     } else {
       setResponse("Wrong");
     }
@@ -106,7 +130,15 @@ export default function Battle() {
       <img id="user" className="battle-pokemon" src={ourPokemon?.sprite} />
       <div className="trivia">
         <div className="question-box">
-          <h2>{isLoading ? "Loading..." : response == "Correct" ? `You've defeated ${badPokemon?.name}!` : response == "Wrong" ? "You've been defeated" : question.question}</h2>
+          <h2>
+            {isLoading
+              ? "Loading..."
+              : response == "Correct"
+                ? `You've defeated ${badPokemon?.name}!`
+                : response == "Wrong"
+                  ? "You've been defeated"
+                  : question.question}
+          </h2>
         </div>
 
         <div className="choice-box">
@@ -125,11 +157,11 @@ export default function Battle() {
               className = `choice-${idx}`;
             }
 
-          return (
-            <div key={isLoading ? idx : choice} className={className}>
-              <Button text={choice} onClick={() => handleChoice(choice)} />
-            </div>
-          );
+            return (
+              <div key={isLoading ? idx : choice} className={className}>
+                <Button text={choice} onClick={() => handleChoice(choice)} />
+              </div>
+            );
           })}
         </div>
       </div>
