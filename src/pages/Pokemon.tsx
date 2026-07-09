@@ -5,6 +5,42 @@ import { useNavigate } from "react-router-dom";
 import "./pokemon.css";
 
 export default function Pokemon() {
+  const petResponses = [
+    "purrs contentedly and leans into your hand.",
+    "closes its eyes, enjoying the attention.",
+    "makes a happy little chirp!",
+    "nuzzles against your palm.",
+    "wags its tail rapidly.",
+    "seems to relax, its shoulders drooping happily.",
+    "lets out a soft, pleased cry.",
+    "tilts its head, asking for more.",
+    "curls up slightly, savoring the moment.",
+    "gives you a warm, trusting look.",
+    "shivers with delight.",
+    "flops over, wanting a belly rub.",
+    "hums softly, clearly enjoying itself.",
+    "presses its head into your hand.",
+    "lets out a happy little squeak.",
+    "sways gently, completely at ease.",
+    "gazes up at you affectionately.",
+    "seems to melt under your touch.",
+    "does a small happy wiggle.",
+    "blinks slowly — a sign of trust and comfort.",
+  ];
+
+  const [petText, setPetText] = useState("");
+  const [showPetBox, setShowPetBox] = useState(false);
+
+  function handlePet() {
+    if (!selectedPokemon) return;
+    setPetText(`${selectedPokemon.name} ${genPetResponse()}`);
+    setShowPetBox(true);
+  }
+
+  function genPetResponse() {
+    return petResponses[Math.floor(Math.random() * petResponses.length)];
+  }
+
   const [pokemons, setPokemons] = useState<
     { name: string; sprite: string }[] | null
   >(null);
@@ -59,16 +95,34 @@ export default function Pokemon() {
         </div>
         <div className="menu-actions">
           <Button text="Fight" onClick={() => navigate("/battle")} />
-          <Button text="Feed" onClick={() => {}} />
-          <Button text="Pet" onClick={() => {}} />
+          <Button text="Feed" onClick={() => navigate("/food")} />
+          <Button
+            text="Pet"
+            onClick={() => {
+              handlePet();
+            }}
+          />
           <Button text="Sell" onClick={() => {}} />
         </div>
       </div>
       <div className="pokemon-bottom">
         {pokemons?.map((p, i) => (
-          <img key={i} src={p.sprite} onClick={() => setSelectedPokemon(p)} />
+          <img
+            key={i}
+            src={p.sprite}
+            onClick={() => {
+              setSelectedPokemon(p);
+              setShowPetBox(false);
+            }}
+          />
         ))}
       </div>
+
+      {showPetBox && (
+        <div className="pet-container" onClick={() => setShowPetBox(false)}>
+          <div className="typing-box">{genPetResponse()}</div>
+        </div>
+      )}
     </div>
   );
 }
