@@ -1,5 +1,6 @@
-import { test, expect, vi } from "vitest";
+import { describe, test, expect, vi } from "vitest";
 import { getQuestion } from "./trivia";
+import { shuffle } from "../pages/Battle";
 
 const mockResponse = {
     "response_code":0,
@@ -30,3 +31,34 @@ test('Correct Parsing of API Response', async () => {
         ]
     })
 });
+
+describe('Correct shuffle', () => {
+    const choices = [
+        "Alice Margatroid",
+        "Marisa Kirisame",
+        "Clownpiece",
+        "Flandre Scarlet"
+    ];
+
+    test("Same number of elements returned", () => {
+        const shuffled = shuffle(choices);
+        expect(shuffled).toHaveLength(choices.length);
+    });
+
+    test("Elements haven't been modified", () => {
+        const shuffled = shuffle(choices);
+        expect(shuffled.slice().sort()).toEqual(choices.slice().sort())
+    });
+
+    test("Different orderings", () => {
+        let differentOrder = false;
+        for (let idx = 0; idx < 5; idx++) {
+            const shuffled = shuffle(choices);
+            if (!shuffled.every((val, i) => val === choices[i])) {
+                differentOrder = true;
+                break;
+            }
+        }
+        expect(differentOrder).toBe(true);
+    });
+})
