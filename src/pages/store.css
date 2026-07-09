@@ -32,20 +32,18 @@
 }
 
 .pokemart {
-  position: absolute;
-  top: 200px;
-  left: 100px;
   width: 500px;
 }
 
 .ball-food {
   position: absolute;
-  top: 200px;
+  top: 150px;
   left: 750px;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 30px;
 }
+
 .items {
   display: flex;
   flex-direction: flex-end;
@@ -53,16 +51,90 @@
 }
 
 .item-part {
-  width: 120px;
-  height: 120px;
+  width: 10rem;
   background-color: #8582e0;
   border-radius: 16px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 10px;
+  gap: 8px;
 }
 
 .item-part img {
-  width: 90%;
-  height: 90%;
+  width: 70%;
+  height: 70%;
+}
+
+.roll-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.roll-status {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.roll-item {
+  width: 15rem;
+}
+
+.currency-amount {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fabd22;
+}
+
+.item-price {
+  font-size: 12px;
+  color: #fabd22;
+  font-weight: bold;
+}
+
+.item-count {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.roll-status {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.pokemart-container {
+  position: absolute;
+  top: 11rem;
+  left: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wallet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  background-color: #8582e0;
+  border-radius: 16px;
+  padding: 12px 24px;
+  gap: 4px;
+}
+
+.wallet-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.wallet-amount {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fabd22;
 }
