@@ -107,14 +107,16 @@ export default function Pokemon() {
       </div>
       <div className="pokemon-bottom">
         {pokemons?.map((p, i) => (
-          <img
-            key={i}
-            src={p.sprite}
-            onClick={() => {
-              setSelectedPokemon(p);
-              setShowPetBox(false);
-            }}
-          />
+          <div className="pokemon-box">
+            <img
+              key={i}
+              src={p.sprite}
+              onClick={() => {
+                setSelectedPokemon(p);
+                setShowPetBox(false);
+              }}
+            />
+          </div>
         ))}
       </div>
 

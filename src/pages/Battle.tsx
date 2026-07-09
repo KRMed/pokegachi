@@ -134,7 +134,7 @@ export default function Battle() {
             {isLoading
               ? "Loading..."
               : response == "Correct"
-                ? `You've defeated ${badPokemon?.name}!`
+                ? `You've defeated ${badPokemon?.name}! You get 10 coins`
                 : response == "Wrong"
                   ? "You've been defeated"
                   : question.question}
