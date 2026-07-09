@@ -26,7 +26,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: clamp(250px, 30vw, 350px);
 }
 
 .pokemon-info h3 {
