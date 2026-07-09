@@ -42,12 +42,13 @@ export default function Pokemon() {
   }
 
   const [pokemons, setPokemons] = useState<
-    { pokemonid: number; name: string; sprite: string }[] | null
+    { pokemonid: number; name: string; sprite: string; experience: number; }[] | null
   >(null);
   const [selectedPokemon, setSelectedPokemon] = useState<{
     pokemonid: number;
     name: string;
     sprite: string;
+    experience: number;
   } | null>(null);
   const navigate = useNavigate();
 
@@ -64,7 +65,7 @@ export default function Pokemon() {
 
       supabase
         .from("pokemon")
-        .select("pokemonid, name, sprite")
+        .select("pokemonid, name, sprite, experience")
         .eq("auth_id", result.data.session.user.id) //filters for rows where id matches user
         .then((queryResult) => {
           if (queryResult.error) {
@@ -120,6 +121,11 @@ export default function Pokemon() {
               ? `Name: ${selectedPokemon.name}`
               : "No pokemon selected"}
           </h3>
+          {selectedPokemon && (
+            <div className="select-exp-bar">
+              <div className="select-exp-progress" style={{width:`${selectedPokemon.experience}%`}}/>
+            </div>
+          )}
         </div>
         <div className="menu-actions">
           <Button text="Fight" onClick={() => navigate("/battle")} />
