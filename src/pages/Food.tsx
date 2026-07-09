@@ -18,7 +18,7 @@ export default function Food() {
       </div>
 
       <div className="button-container">
-        <Button text="Back" onClick={() => navigate("/home")} />
+        <Button text="Back" onClick={() => navigate("/pokemon")} />
       </div>
     </div>
   );
