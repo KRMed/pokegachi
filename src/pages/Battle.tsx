@@ -6,6 +6,10 @@ import { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getRandomPokemon } from "../lib/pokeapi.ts";
 
+export function shuffle(arr: string[]) {
+  return arr.map(elem => ({ elem, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ elem }) => elem);
+}
+
 export default function Battle() {
   const [ourPokemon, setourPokemon] = useState<{
     name: string;
@@ -76,13 +80,6 @@ export default function Battle() {
       clearTimeout(timeoutId);
     };
   }, []);
-
-  function shuffle(arr: string[]) {
-    return arr
-      .map((elem) => ({ elem, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ elem }) => elem);
-  }
 
   const choices = useMemo(() => {
     if (!question) return [];
