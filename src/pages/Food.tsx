@@ -142,7 +142,7 @@ export default function Food() {
           <div key={i} className="item-part">
             <img src={item.sprite} alt={item.name} />
             <span className="item-count">x{foodCounts[item.name] || 0}</span>
-            <Button text="Buy" onClick={() => handleFeed(item.name)} />
+            <Button text="Feed" onClick={() => handleFeed(item.name)} />
           </div>
         ))}
       </div>
